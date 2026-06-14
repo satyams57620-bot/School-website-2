@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GOPAL VIDYALAYA INTER COLLEGE [ENGLISH MEDIUM]</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="mainWebsitePage" class="page-view active-view">
+    
+    <div id="sidebarOverlay" class="sidebar-overlay" onclick="toggleSidebar()"></div>
+
+    <header>
+        <div class="menu-toggle" onclick="toggleSidebar()">
+            <div class="line"></div>
+            <div class="line"></div>
+            <div class="line"></div>
+        </div>
+        <img src="school.png" alt="School Logo" class="logo">
+        <h1>GOPAL VIDYALAYA INTER COLLEGE [ENGLISH MEDIUM]</h1>
+    </header>
+
+    <nav>
+        <a href="#home">HOME</a>
+        <a href="#about">ABOUT US</a>
+        <a href="#faculty">FACULTY</a>
+        <a href="#results">RESULTS</a>
+        <a href="#gallery">GALLERY</a>
+        <a href="#address">ADDRESS</a>
+    </nav>
+
+    <div id="sidebarPortal" class="sidebar-portal">
+        <div class="close-btn" onclick="toggleSidebar()">×</div>
+        <h2 style="font-size: 22px; margin-bottom: 20px;">PORTAL ZONE</h2>
+        
+        <div class="tab-control">
+            <button class="tab-btn active" onclick="switchTab('student-login-box')">Student</button>
+            <button class="tab-btn" onclick="switchTab('admin-login-box')">Admin</button>
+            <button class="tab-btn" onclick="switchTab('register-box')">Register</button>
+        </div>
+
+        <div class="form-container">
+            <div id="student-login-box" class="portal-box active">
+                <h3 style="text-align:center; margin-bottom:15px; color:#003366;">Student Login</h3>
+                <form onsubmit="navigateToPage('student', event)">
+                    <div class="input-group">
+                        <label>Student ID (Allotted by Admin)</label>
+                        <input type="text" id="studentLogId" placeholder="e.g. GVIC-2026-1001" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Phone Number</label>
+                        <input type="password" id="studentLogPhone" placeholder="Enter registered phone number" required>
+                    </div>
+                    <button type="submit" class="form-btn">Login as Student</button>
+                </form>
+            </div>
+
+            <div id="admin-login-box" class="portal-box">
+                <h3 style="text-align:center; margin-bottom:15px; color:#830808;">Admin Center</h3>
+                <form onsubmit="navigateToPage('admin', event)">
+                    <div class="input-group">
+                        <label>Admin User ID</label>
+                        <input type="text" id="adminLogUser" placeholder="admin_username" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Security Password</label>
+                        <input type="password" placeholder="Enter security key" required>
+                    </div>
+                    <button type="submit" class="form-btn" style="background:#830808;">Verify Admin ID</button>
+                </form>
+            </div>
+
+            <div id="register-box" class="portal-box">
+                <h3 style="text-align:center; margin-bottom:5px; color:#006633;">Student Signup</h3>
+                <p class="optional-note" style="text-align:center;">Note: Verification matching rules apply. Data must match exact Admin records.</p>
+                
+                <form id="registerForm" onsubmit="handleRegistration(event)">
+                    <div class="input-group">
+                        <label>Assigned Student ID</label>
+                        <input type="text" id="regStudentId" placeholder="Provide Student ID from Admin" required>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Name</label>
+                        <input type="text" id="regName" placeholder="Student's full name" required>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label>Father's Name</label>
+                        <input type="text" id="regFatherName" placeholder="Father's full name" required>
+                    </div>
+                    
+                    <div class="input-row">
+                        <div class="input-group">
+                            <label>Class</label>
+                            <select id="regClass" onchange="handleCascadingSections('regClass', 'regSection')" required>
+                                <option value="">Select Class</option>
+                                <option value="1">Class 1</option>
+                                <option value="2">Class 2</option>
+                                <option value="3">Class 3</option>
+                                <option value="4">Class 4</option>
+                                <option value="5">Class 5</option>
+                                <option value="6">Class 6</option>
+                                <option value="7">Class 7</option>
+                                <option value="8">Class 8</option>
+                                <option value="9">Class 9</option>
+                                <option value="10">Class 10</option>
+                                <option value="11">Class 11</option>
+                                <option value="12">Class 12</option>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <label>Section</label>
+                            <select id="regSection" required>
+                                <option value="">Select Class First</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label>Roll Number</label>
+                        <input type="number" id="regRollNo" placeholder="Enter roll number" required>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Upload Photo (Dress Compliance Code Check)</label>
+                        <input type="file" id="regPhoto" accept="image/*" required>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label>☆ Apar ID</label>
+                        <input type="text" id="regAparId" placeholder="Enter APAAR ID number">
+                    </div>
+                    
+                    <div class="input-group">
+                        <label>☆ Pen No.</label>
+                        <input type="text" id="regPenNo" placeholder="Permanent Education Number">
+                    </div>
+                    
+                    <div class="input-group">
+                        <label>Phone No.</label>
+                        <div class="otp-action-group">
+                            <input type="tel" id="regPhone" pattern="[0-9]{10}" placeholder="10-digit mobile number" required>
+                            <button type="button" class="otp-btn" onclick="sendMockOTP()">Send OTP</button>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label>OTP</label>
+                        <input type="text" id="regOtp" placeholder="Enter verification code" required>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label>Capture Code</label>
+                        <div class="captcha-container">
+                            <div class="captcha-box" id="captchaDisplay">4G9K2</div>
+                            <button type="button" class="refresh-captcha" onclick="generateCaptcha()">🔄</button>
+                        </div>
+                        <input type="text" id="regCaptchaInput" placeholder="Enter code shown above" required>
+                    </div>
+                    
+                    <button type="submit" class="form-btn">Verify & Create Profile</button>
+                </form>
+            </div>
+
+            <div id="portalMessage" class="form-message"></div>
+        </div>
+    </div>
+
+    <section id="home">
+        <h2>HOME</h2>
+        <p>Welcome to Gopal Vidyalay Inter College [English Medium]. Our mission is to provide high-quality education and help students achieve academic excellence along with strong moral values.</p>
+    </section>
+
+    <section id="about">
+        <h2>ABOUT US</h2>
+        <div class="faculty">
+            <div class="teacher">
+                <img src="founder.jpg" alt="Founder">
+                <h3>RAJA BAHADUR RAJA AJEYA SINGH</h3>
+                <p class="sub-text">Founder</p>
+            </div>
+            <div class="teacher">
+                <img src="voicepresident.jpg" alt="Vice President">
+                <h3>Mrs. R.N. Bajpai</h3>
+                <p class="sub-text">Vice President</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="faculty">
+        <h2>FACULTY</h2>
+        <div class="faculty">
+            <div class="teacher">
+                <img src="principle.jpg" alt="Principal">
+                <h3>Dr. Mohd. SABIR ALI</h3>
+                <p class="sub-text">Principal</p>
+            </div>
+            <div class="teacher">
+                <img src="hod.jpg" alt="HOD">
+                <h3>Mrs. BRIJESH SHRIVASTAV</h3>
+                <p class="sub-text">H.O.D.</p>
+            </div>
+            <div class="teacher">
+                <img src="manager.jpg" alt="Manager">
+                <h3>Mr. GOVIND NARAYAN MISHRA</h3>
+                <p class="sub-text">Manager</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="results">
+        <h2>🏆 CLASS 10TH MERITORIOUS TOPPERS (TOP 10)</h2>
+        <p style="text-align:center; margin-bottom: 25px; color:#555;">Honoring academic brilliance and extraordinary dedication from our Class 10 board results.</p>
+        
+        <div class="topper-carousel-container">
+            <div class="topper-track-wrapper" id="topperTrackWrapper">
+                <div class="topper-card-slide">
+                    <img src="school.png" alt="Topper Photo">
+                    <div class="t-name">Toppers Awaiting Release</div>
+                    <div class="t-pct">--%</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="gallery">
+        <h2>GALLERY</h2>
+        <div class="slider">
+            <div class="slides">
+                <img src="school.jpg" alt="School Image 1">
+                <img src="school1.webp" alt="School Image 2">
+                <img src="school2.webp" alt="School Image 3">
+                <img src="school.jpg" alt="School Image 4">
+            </div>
+        </div>
+    </section>
+
+    <section id="address">
+        <h2>ADDRESS & LOCATION</h2>
+        <div class="address-container">
+            <div class="contact-box">
+                <p><strong>GOPAL VIDYALAYA INTER COLLEGE</strong><br>Koraon, Prayagraj, UP - 212306</p>
+                <br>
+                <p><strong>Phone:</strong> +91 9876543210</p>
+                <p><strong>Email:</strong> info@gvicem.com</p>
+            </div>
+            <div class="map-box">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3615.148564038477!2d82.06311827611082!3d25.029013538491823!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3985456f91f1c505%3A0xc0fbcebc4eef65bc!2sGopal%20Vidyalaya%20Inter%20College!5e0!3m2!1sen!2sin!4v1717945000000!5m2!1sen!2sin" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+        </div>
+    </section>
+
+    <footer>© 2026 Gopal Vidyalay Inter College | All Rights Reserved</footer>
+</div>
+
+
+<div id="studentDashboardPage" class="page-view">
+    <nav class="dash-nav" style="background: #006633;">
+        <h2>Student Control Portal</h2>
+        <button class="dash-logout" style="color: #006633;" onclick="logoutToMain()">Log Out Securely</button>
+    </nav>
+    
+    <div class="dash-container">
+        <div class="welcome-card" style="border-left: 5px solid #006633; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px;">
+            <div>
+                <h1>Welcome Back, <span id="displayStudentUser" style="color:#006633;">Student</span>!</h1>
+                <p>Gopal Vidyalaya Inter College Academic Center</p>
+                <p style="margin-top: 5px; font-size: 14px; color: #555;">ID: <strong id="displayStudentIdCard">None</strong> | Class: <strong id="displayStudentClassCard">N/A</strong></p>
+            </div>
+            <div style="text-align: center;">
+                <img id="dashboardStudentPhoto" src="" alt="Dress Code Upload Profile" style="width: 100px; height: 100px; border-radius: 8px; object-fit: cover; border: 3px solid #006633; display: none;">
+                <p id="photoLabelStatus" style="font-size:11px; font-weight:bold; color:#006633; margin-top:2px; display:none;">👗 Dress Checked</p>
+            </div>
+        </div>
+        
+        <div class="dash-grid">
+            <div class="dash-card">
+                <h3>📅 Academic Calendar</h3>
+                <ul class="dash-list">
+                    <li><strong>Quarterly Exams:</strong> Starts September 14, 2026</li>
+                    <li><strong>Science Exhibition:</strong> October 05, 2026</li>
+                    <li><strong>Winter Holidays:</strong> Dec 24 - Jan 02</li>
+                </ul>
+            </div>
+            <div class="dash-card">
+                <h3>📝 Progress & Attendance</h3>
+                <p style="font-size: 14px; margin-bottom:10px;">Your current attendance: <strong>88%</strong></p>
+                <ul class="dash-list">
+                    <li>Unit Test I — 84% Marks (Passed)</li>
+                    <li>Unit Test II — 89% Marks (Passed)</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="adminDashboardPage" class="page-view">
+    <nav class="dash-nav" style="background: #830808;">
+        <h2>Admin Management Dashboard</h2>
+        <button class="dash-logout" style="color: #830808;" onclick="logoutToMain()">Exit Terminal</button>
+    </nav>
+    
+    <div class="dash-container">
+        <div class="counter-box-row">
+            <div class="counter-metric-card">
+                <span class="lbl">Total IDs Allotted</span>
+                <span class="num" id="statTotalAllotted">0</span>
+            </div>
+            <div class="counter-metric-card login-type">
+                <span class="lbl">Total Logged In (Verified)</span>
+                <span class="num" id="statTotalLogined">0</span>
+            </div>
+        </div>
+
+        <div class="welcome-card" style="border-top: 4px solid #830808; margin-bottom: 20px;">
+            <h3 style="color:#830808; margin-bottom: 10px; font-size:16px; text-transform:uppercase; letter-spacing:0.5px;">
+                📊 Class-Wise Generated IDs Summary 
+            </h3>
+            <div class="class-distribution-grid" id="classDistributionDashboard"></div>
+            <div style="text-align: right;" id="clearClassFilterContainer"></div>
+        </div>
+
+        <div class="welcome-card" style="border-left: 5px solid #e2b316; background:#fffbf2;">
+            <h3 style="color:#b28500; margin-bottom:10px;" id="topperFormHeading">🏆 Admin Toppers Gallery Manager (Class 10th)</h3>
+            <p style="font-size:13px; color:#666; margin-bottom:15px;">Add new top student files or modify profile pictures, metrics, and labels inside the frontend horizontal scroll layout loop.</p>
+            
+            <form id="adminTopperUploadForm" onsubmit="saveTopperToCarousel(event)" style="display:flex; flex-wrap:wrap; gap:15px; align-items:flex-end;">
+                <input type="hidden" id="editingTopperIndex" value="">
+                
+                <div class="input-group" style="flex:2; min-width:200px; margin-bottom:0;">
+                    <label>Topper Student Name</label>
+                    <input type="text" id="topName" placeholder="e.g. Satyam Singh" required>
+                </div>
+                <div class="input-group" style="flex:1; min-width:120px; margin-bottom:0;">
+                    <label>Percentage Secure</label>
+                    <input type="text" id="topPercentage" placeholder="e.g. 98.4%" required>
+                </div>
+                <div class="input-group" style="flex:1.5; min-width:180px; margin-bottom:0;">
+                    <label>Upload Profile Picture</label>
+                    <input type="file" id="topImageFile" accept="image/*">
+                    <span id="editPhotoNote" style="font-size:11px; color:#666; display:none;">Leave blank to preserve current image file</span>
+                </div>
+                
+                <div style="display:flex; gap:10px;">
+                    <button type="submit" id="topperSubmitBtn" class="form-btn" style="background:#b28500; width:auto; padding:10px 20px; height:41px;">Push to Live Slider</button>
+                    <button type="button" id="cancelTopperEditBtn" class="form-btn" style="background:#666; width:auto; padding:10px 20px; height:41px; display:none;" onclick="resetTopperFormState()">Cancel</button>
+                </div>
+            </form>
+            <div id="topperUploadFeedback" style="margin-top:10px; font-weight:bold; font-size:13px;"></div>
+
+            <h4 style="color:#003366; margin:20px 0 10px 0; border-top:1px solid #ddd; padding-top:15px;">📋 Currently Active Top 10 Roster</h4>
+            <table class="dash-table" style="background:#fff;">
+                <thead>
+                    <tr>
+                        <th>Image preview</th>
+                        <th>Student Name</th>
+                        <th>Percentage Score</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="toppersAdminTableBody">
+                    </tbody>
+            </table>
+        </div>
+
+        <div class="welcome-card" style="border-left: 5px solid #830808;">
+            <h1>Terminal Operator: <span id="displayAdminUser" style="color:#830808;">Admin</span></h1>
+            <p>Global Administrative oversight systems control node.</p>
+        </div>
+        
+        <div class="dash-grid">
+            <div class="dash-card" style="flex: 1; min-width: 320px;">
+                <h3 id="adminFormTitle">ID Generator & Registration Mapping</h3>
+                <p style="font-size: 12px; color: #666; margin-bottom: 15px;">Create or modify official tracking profiles here.</p>
+                
+                <form id="adminAllocationForm" onsubmit="adminSaveStudentData(event)">
+                    <input type="hidden" id="editingRecordId" value="">
+
+                    <div class="input-group">
+                        <label>Application Form No.</label>
+                        <input type="text" id="admAppNo" placeholder="e.g. APP-9821" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Student Full Name</label>
+                        <input type="text" id="admName" placeholder="Enter student's exact name" required>
+                    </div>
+                    <div class="input-row">
+                        <div class="input-group">
+                            <label>Class</label>
+                            <select id="admClass" onchange="handleCascadingSections('admClass', 'admSection')" required>
+                                <option value="">Select Class</option>
+                                <option value="1">Class 1</option>
+                                <option value="2">Class 2</option>
+                                <option value="3">Class 3</option>
+                                <option value="4">Class 4</option>
+                                <option value="5">Class 5</option>
+                                <option value="6">Class 6</option>
+                                <option value="7">Class 7</option>
+                                <option value="8">Class 8</option>
+                                <option value="9">Class 9</option>
+                                <option value="10">Class 10</option>
+                                <option value="11">Class 11</option>
+                                <option value="12">Class 12</option>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <label>Section</label>
+                            <select id="admSection" required>
+                                <option value="">Select Class First</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button type="submit" id="adminSubmitFormBtn" class="form-btn" style="background: #003366;">Generate & Store Student ID</button>
+                    <button type="button" id="cancelEditBtn" class="form-btn" style="background: #666; margin-top:8px; display:none;" onclick="resetAdminFormState()">Cancel Editing</button>
+                </form>
+                <div id="adminFormMessage" style="margin-top: 10px; font-weight: bold; font-size: 13px; text-align: center;"></div>
+            </div>
+
+            <div class="dash-card" style="flex: 2; min-width: 350px;">
+                <h3 id="databaseTableHeading">📥 Authorized System Records & Dynamic Database</h3>
+                
+                <div class="search-container-bar">
+                    <input type="text" id="searchName" placeholder="🔍 Search Name..." oninput="updateAdminUIRecords()">
+                    <select id="searchClass" onchange="handleSearchCascadingSections()">
+                        <option value="">All Classes</option>
+                        <option value="1">Class 1</option>
+                        <option value="2">Class 2</option>
+                        <option value="3">Class 3</option>
+                        <option value="4">Class 4</option>
+                        <option value="5">Class 5</option>
+                        <option value="6">Class 6</option>
+                        <option value="7">Class 7</option>
+                        <option value="8">Class 8</option>
+                        <option value="9">Class 9</option>
+                        <option value="10">Class 10</option>
+                        <option value="11">Class 11</option>
+                        <option value="12">Class 12</option>
+                    </select>
+                    <select id="searchSection" onchange="updateAdminUIRecords()">
+                        <option value="">All Sections</option>
+                    </select>
+                </div>
+
+                <table class="dash-table" id="adminDatabaseTable">
+                    <thead>
+                        <tr>
+                            <th>Student ID</th>
+                            <th>Name</th>
+                            <th>Class & Sec</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
